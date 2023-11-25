@@ -1,15 +1,24 @@
 package ppkeitkhalkszavu.projectrossini.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import jakarta.persistence.*;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 @AllArgsConstructor
+@Entity
+@Table (name = "materials")
 public class Material {
+    @Id
+    @GeneratedValue
     private String id;
+    @Column
     private String name;
+    @Column
     private UnitOfMeasure unit;
 
+    @OneToMany
     private Benefit benefit;
 }
 

@@ -1,11 +1,22 @@
 package ppkeitkhalkszavu.projectrossini.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import jakarta.persistence.*;
+import lombok.*;
 
-@Data
 @AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@Entity
+@Table(name = "dishes")
 public class Dish {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
+    @Column
     private String name;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User owner;
 }

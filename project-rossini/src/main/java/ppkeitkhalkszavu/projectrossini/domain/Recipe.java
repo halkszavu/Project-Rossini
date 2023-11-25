@@ -1,18 +1,30 @@
 package ppkeitkhalkszavu.projectrossini.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import jakarta.persistence.*;
+import lombok.*;
 
-@Data
+@Setter
+@Getter
+@NoArgsConstructor
 @AllArgsConstructor
+@Entity
+@Table(name = "recipes")
 public class Recipe {
+    @Id
+    @GeneratedValue
     private String id;
+    @Column
     private String name;
+    @Column
     private int methodTime;
+    @Column
     private int restTime;
+    @Column
     private int serves;
+    @Column
     private String methodDescr;
 
-    private User owner;
+    @ManyToOne
+    @JoinColumn(name = "dish_id")
     private Dish dish;
 }

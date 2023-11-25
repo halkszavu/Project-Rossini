@@ -1,12 +1,22 @@
 package ppkeitkhalkszavu.projectrossini.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.*;
 
-@Data
 @AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
+@Entity
+@Table (name = "substitutions")
 public class Substitution {
+    @Id
+    @GeneratedValue
     private String id;
+
     private Ingredient source;
     private Ingredient substitute;
 }

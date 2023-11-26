@@ -26,6 +26,6 @@ public class Material {
 
 enum UnitOfMeasure {
     GRAM,
-    LITER,
+    LITRE,
     PIECE,
 }

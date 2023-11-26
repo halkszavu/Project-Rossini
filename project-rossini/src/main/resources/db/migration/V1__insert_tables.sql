@@ -1,69 +1,59 @@
+CREATE TYPE UNIT AS ENUM ('GRAM', 'LITER', 'PIECE');
+
 CREATE TABLE benefits (
-  id VARCHAR(255) NOT NULL,
-   effect VARCHAR(255),
-   CONSTRAINT pk_benefits PRIMARY KEY (id)
+  id INTEGER NOT NULL PRIMARY KEY auto_increment,
+   effect VARCHAR(255)
 );
 CREATE TABLE dishes (
-  id VARCHAR(255) NOT NULL,
+  id INTEGER NOT NULL PRIMARY KEY auto_increment,
    name VARCHAR(255),
-   user_id VARCHAR(255),
-   CONSTRAINT pk_dishes PRIMARY KEY (id)
+   user_id VARCHAR(255)
 );
 CREATE TABLE users (
-  id VARCHAR(255) NOT NULL,
+  id INTEGER NOT NULL PRIMARY KEY auto_increment,
    name VARCHAR(255),
    role VARCHAR(255),
-   CONSTRAINT pk_users PRIMARY KEY (id)
+   CONSTRAINT unique_name UNIQUE (name)
 );
 CREATE TABLE substitutions (
-  id VARCHAR(255) NOT NULL,
+  id INTEGER NOT NULL PRIMARY KEY auto_increment,
    source_id VARCHAR(255),
-   substitute_id VARCHAR(255),
-   CONSTRAINT pk_substitutions PRIMARY KEY (id)
+   substitute_id VARCHAR(255)
 );
-
-ALTER TABLE substitutions ADD CONSTRAINT FK_SUBSTITUTIONS_ON_SOURCE FOREIGN KEY (source_id) REFERENCES ingredient (id);
-
-ALTER TABLE substitutions ADD CONSTRAINT FK_SUBSTITUTIONS_ON_SUBSTITUTE FOREIGN KEY (substitute_id) REFERENCES ingredient (id);
 CREATE TABLE recipes (
-  id VARCHAR(255) NOT NULL,
+  id INTEGER NOT NULL PRIMARY KEY auto_increment,
    name VARCHAR(255),
    method_time INTEGER,
    rest_time INTEGER,
    serves INTEGER,
-   method_descr VARCHAR(255),
+   method_descr TEXT,
    dish_id VARCHAR(255),
-   recipe_id VARCHAR(255),
-   CONSTRAINT pk_recipes PRIMARY KEY (id)
+   recipe_id VARCHAR(255)
 );
-
-ALTER TABLE recipes ADD CONSTRAINT FK_RECIPES_ON_DISH FOREIGN KEY (dish_id) REFERENCES dishes (id);
-
-ALTER TABLE recipes ADD CONSTRAINT FK_RECIPES_ON_RECIPE FOREIGN KEY (recipe_id) REFERENCES ingredient (id);
 CREATE TABLE materials (
-  id VARCHAR(255) NOT NULL,
+  id INTEGER NOT NULL PRIMARY KEY auto_increment,
    name VARCHAR(255),
-   unit SMALLINT,
-   CONSTRAINT pk_materials PRIMARY KEY (id)
+   unit UNIT
 );
 CREATE TABLE ingredient (
-  id VARCHAR(255) NOT NULL,
-   amount INTEGER,
+  id INTEGER NOT NULL PRIMARY KEY auto_increment,
+   amount FLOAT(24),
    prep_descr VARCHAR(255),
    prep_time INTEGER,
-   material_id VARCHAR(255),
-   CONSTRAINT pk_ingredient PRIMARY KEY (id)
+   material_id VARCHAR(255)
 );
 CREATE TABLE materials_benefit (
-  material_id VARCHAR(255) NOT NULL,
+  id INTEGER NOT NULL PRIMARY KEY auto_increment,
+   material_id VARCHAR(255) NOT NULL,
    benefit_id VARCHAR(255) NOT NULL
 );
 
 ALTER TABLE materials_benefit ADD CONSTRAINT uc_materials_benefit_benefit UNIQUE (benefit_id);
-
 ALTER TABLE materials_benefit ADD CONSTRAINT fk_matben_on_benefit FOREIGN KEY (benefit_id) REFERENCES benefits (id);
-
 ALTER TABLE materials_benefit ADD CONSTRAINT fk_matben_on_material FOREIGN KEY (material_id) REFERENCES materials (id);
 ALTER TABLE ingredient ADD CONSTRAINT FK_INGREDIENT_ON_MATERIAL FOREIGN KEY (material_id) REFERENCES materials (id);
-
 ALTER TABLE dishes ADD CONSTRAINT FK_DISHES_ON_USER FOREIGN KEY (user_id) REFERENCES users (id);
+ALTER TABLE recipes ADD CONSTRAINT FK_RECIPES_ON_RECIPE FOREIGN KEY (recipe_id) REFERENCES ingredient (id);
+ALTER TABLE substitutions ADD CONSTRAINT FK_SUBSTITUTIONS_ON_SOURCE FOREIGN KEY (source_id) REFERENCES ingredient (id);
+ALTER TABLE substitutions ADD CONSTRAINT FK_SUBSTITUTIONS_ON_SUBSTITUTE FOREIGN KEY (substitute_id) REFERENCES ingredient (id);
+ALTER TABLE recipes ADD CONSTRAINT FK_RECIPES_ON_DISH FOREIGN KEY (dish_id) REFERENCES dishes (id);

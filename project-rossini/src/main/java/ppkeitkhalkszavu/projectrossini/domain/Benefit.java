@@ -16,7 +16,7 @@ public class Benefit {
 
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
-    private String id;
+    private int id;
     @Column
     private String effect;
 }

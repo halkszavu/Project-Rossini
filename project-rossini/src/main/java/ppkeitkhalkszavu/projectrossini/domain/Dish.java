@@ -11,7 +11,7 @@ import lombok.*;
 @Table(name = "dishes")
 public class Dish {
     @Id
-    private String id;
+    private int id;
     @Column
     private String name;
 

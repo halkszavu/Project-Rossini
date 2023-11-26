@@ -12,7 +12,7 @@ import lombok.*;
 public class Substitution {
     @Id
     @GeneratedValue
-    private String id;
+    private int id;
 
     @ManyToOne
     @JoinColumn (name = "source_id")

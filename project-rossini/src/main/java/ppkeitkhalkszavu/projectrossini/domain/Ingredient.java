@@ -13,9 +13,9 @@ import java.util.List;
 public class Ingredient {
     @Id
     @GeneratedValue
-    private String id;
+    private int id;
     @Column
-    private int amount;
+    private float amount;
     @Column
     private String prepDescr;
     @Column

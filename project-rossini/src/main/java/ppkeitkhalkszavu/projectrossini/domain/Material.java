@@ -14,7 +14,7 @@ import java.util.List;
 public class Material {
     @Id
     @GeneratedValue
-    private String id;
+    private int id;
     @Column
     private String name;
     @Column

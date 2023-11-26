@@ -1,19 +1,24 @@
 package ppkeitkhalkszavu.projectrossini.domain;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@NoArgsConstructor
 @AllArgsConstructor
+@Setter
+@Getter
+@Entity
+@Table (name = "users")
 public class User {
-    private String id;
-    private String name;
-    private Role role;
-}
 
-enum Role {
-    ADMIN,
-    USER,
-    CHEF,
-    DIETITIAN,
+    @Id
+    @GeneratedValue
+    private String id;
+    @Column
+    private String name;
+    @Column
+    private String role;
 }

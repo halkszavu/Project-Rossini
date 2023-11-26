@@ -1,9 +1,6 @@
 package ppkeitkhalkszavu.projectrossini.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 @AllArgsConstructor
@@ -17,6 +14,8 @@ public class Substitution {
     @GeneratedValue
     private String id;
 
+    @ManyToOne
     private Ingredient source;
+    @ManyToOne
     private Ingredient substitute;
 }

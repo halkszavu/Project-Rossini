@@ -23,7 +23,4 @@ public class Ingredient {
 
     @ManyToOne
     private Material material;
-    @OneToMany
-    @JoinColumn (name = "recipe_id")
-    private List<Recipe> recipes;
 }

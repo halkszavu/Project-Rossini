@@ -1,4 +1,4 @@
-CREATE TYPE UNIT AS ENUM ('GRAM', 'LITER', 'PIECE');
+CREATE TYPE UNIT AS ENUM ('GRAM', 'LITRE', 'PIECE');
 
 CREATE TABLE benefits (
   id INTEGER NOT NULL PRIMARY KEY auto_increment,
@@ -27,8 +27,7 @@ CREATE TABLE recipes (
    rest_time INTEGER,
    serves INTEGER,
    method_descr TEXT,
-   dish_id VARCHAR(255),
-   recipe_id VARCHAR(255)
+   dish_id INTEGER
 );
 CREATE TABLE materials (
   id INTEGER NOT NULL PRIMARY KEY auto_increment,
@@ -40,7 +39,8 @@ CREATE TABLE ingredient (
    amount FLOAT(24),
    prep_descr VARCHAR(255),
    prep_time INTEGER,
-   material_id VARCHAR(255)
+   material_id INTEGER,
+   recipe_id INTEGER
 );
 CREATE TABLE materials_benefit (
   id INTEGER NOT NULL PRIMARY KEY auto_increment,
@@ -53,7 +53,7 @@ ALTER TABLE materials_benefit ADD CONSTRAINT fk_matben_on_benefit FOREIGN KEY (b
 ALTER TABLE materials_benefit ADD CONSTRAINT fk_matben_on_material FOREIGN KEY (material_id) REFERENCES materials (id);
 ALTER TABLE ingredient ADD CONSTRAINT FK_INGREDIENT_ON_MATERIAL FOREIGN KEY (material_id) REFERENCES materials (id);
 ALTER TABLE dishes ADD CONSTRAINT FK_DISHES_ON_USER FOREIGN KEY (user_id) REFERENCES users (id);
-ALTER TABLE recipes ADD CONSTRAINT FK_RECIPES_ON_RECIPE FOREIGN KEY (recipe_id) REFERENCES ingredient (id);
+ALTER TABLE ingredient ADD CONSTRAINT FK_INGREDIENT_ON_RECIPE FOREIGN KEY (recipe_id) REFERENCES recipes (id);
 ALTER TABLE substitutions ADD CONSTRAINT FK_SUBSTITUTIONS_ON_SOURCE FOREIGN KEY (source_id) REFERENCES ingredient (id);
 ALTER TABLE substitutions ADD CONSTRAINT FK_SUBSTITUTIONS_ON_SUBSTITUTE FOREIGN KEY (substitute_id) REFERENCES ingredient (id);
 ALTER TABLE recipes ADD CONSTRAINT FK_RECIPES_ON_DISH FOREIGN KEY (dish_id) REFERENCES dishes (id);

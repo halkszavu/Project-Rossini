@@ -15,7 +15,9 @@ public class Substitution {
     private String id;
 
     @ManyToOne
+    @JoinColumn (name = "source_id")
     private Ingredient source;
     @ManyToOne
+    @JoinColumn (name = "substitute_id")
     private Ingredient substitute;
 }

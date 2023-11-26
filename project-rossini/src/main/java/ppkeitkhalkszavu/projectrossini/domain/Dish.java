@@ -11,7 +11,6 @@ import lombok.*;
 @Table(name = "dishes")
 public class Dish {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
     @Column
     private String name;

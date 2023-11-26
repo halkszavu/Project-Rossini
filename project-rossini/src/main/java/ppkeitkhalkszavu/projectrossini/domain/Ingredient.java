@@ -3,6 +3,8 @@ package ppkeitkhalkszavu.projectrossini.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -23,5 +25,5 @@ public class Ingredient {
     private Material material;
     @OneToMany
     @JoinColumn (name = "recipe_id")
-    private Recipe recipe;
+    private List<Recipe> recipes;
 }

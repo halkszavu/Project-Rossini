@@ -3,3 +3,12 @@ management:
     web:
       exposure:
         include: "*"
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=false
+    driver-class-name: org.h2.Driver
+    data-username: sa
+    data-password: ""
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect

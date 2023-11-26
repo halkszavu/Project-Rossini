@@ -3,6 +3,8 @@ package ppkeitkhalkszavu.projectrossini.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -19,7 +21,7 @@ public class Material {
     private UnitOfMeasure unit;
 
     @OneToMany
-    private Benefit benefit;
+    private List<Benefit> benefit;
 }
 
 enum UnitOfMeasure {

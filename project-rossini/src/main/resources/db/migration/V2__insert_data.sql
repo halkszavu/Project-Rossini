@@ -21,21 +21,73 @@ INSERT INTO dishes (name, user_id) SELECT 'Sausage pappardelle', id FROM users W
 INSERT INTO recipes (name, method_time, serves, method_descr, dish_id) SELECT 'Tuna sweetcorn tagliatelle', 15, 1, 'Method', id FROM dishes WHERE name = 'Tuna sweetcorn tagliatelle';
 INSERT INTO recipes (name, method_time, serves, method_descr, dish_id) SELECT 'Sausage pappardelle', 15, 1, 'Method', id FROM dishes WHERE name = 'Sausage pappardelle';
 
-INSERT INTO ingredient (amount, material_id, recipe_id) SELECT 125, id FROM materials WHERE name = 'Tagliatelle pasta', id FROM recipes WHERE name = 'Tuna sweetcorn tagliatelle';
-INSERT INTO ingredient (amount, prep_descr, prep_time, material_id, recipe_id) SELECT 10, 'grated', 2, id FROM materials WHERE name = 'Parmesan cheese', id FROM recipes WHERE name = 'Tuna sweetcorn tagliatelle';
-INSERT INTO ingredient (amount, material_id, recipe_id) SELECT 40, id FROM materials WHERE name = 'Tuna in oil', id FROM recipes WHERE name = 'Tuna sweetcorn tagliatelle';
-INSERT INTO ingredient (amount, material_id, recipe_id) SELECT 80, id FROM materials WHERE name = 'Sweetcorn', id FROM recipes WHERE name = 'Tuna sweetcorn tagliatelle';
-INSERT INTO ingredient (amount, material_id, recipe_id) SELECT 0.5, id FROM materials WHERE name = 'Lemon', id FROM recipes WHERE name = 'Tuna sweetcorn tagliatelle';
-INSERT INTO ingredient (amount, material_id, recipe_id) SELECT 0.5, id FROM materials WHERE name = 'Red onion', id FROM recipes WHERE name = 'Tuna sweetcorn tagliatelle';
-INSERT INTO ingredient (amount, material_id, recipe_id) SELECT 0.5, id FROM materials WHERE name = 'Red chilli', id FROM recipes WHERE name = 'Tuna sweetcorn tagliatelle';
-INSERT INTO ingredient (amount, material_id, recipe_id) SELECT 2, id FROM materials WHERE name = 'Sprigs of parsley', id FROM recipes WHERE name = 'Tuna sweetcorn tagliatelle';
-INSERT INTO ingredient (amount, material_id, recipe_id) SELECT 125, id FROM materials WHERE name = 'Tagliatelle pasta', id FROM recipes WHERE name = 'Sausage pappardelle';
-INSERT INTO ingredient (amount, material_id, recipe_id) SELECT 1, id FROM materials WHERE name = 'Clove of garlic', id FROM recipes WHERE name = 'Sausage pappardelle';
-INSERT INTO ingredient (amount, material_id, recipe_id) SELECT 10, id FROM materials WHERE name = 'Fennel seed', id FROM recipes WHERE name = 'Sausage pappardelle';
-INSERT INTO ingredient (amount, material_id, recipe_id) SELECT 200, id FROM materials WHERE name = 'Tomato puree', id FROM recipes WHERE name = 'Sausage pappardelle';
-INSERT INTO ingredient (amount, material_id, recipe_id) SELECT 100, id FROM materials WHERE name = 'Chianti', id FROM recipes WHERE name = 'Sausage pappardelle';
-INSERT INTO ingredient (amount, isSubstitute, material_id, recipe_id) SELECT 100, TRUE, id FROM materials WHERE name = 'Red wine', id FROM recipes WHERE name = 'Sausage pappardelle';
-INSERT INTO ingredient (amount, material_id, recipe_id) SELECT 0.5, id FROM materials WHERE name = 'Sprigs of parsley', id FROM recipes WHERE name = 'Sausage pappardelle';
-INSERT INTO ingredient (amount, material_id, recipe_id) SELECT 75, id FROM materials WHERE name = 'Saugsages', id FROM recipes WHERE name = 'Sausage pappardelle';
+INSERT INTO ingredient (amount, material_id, recipe_id)
+    SELECT 125, m.id, r.id
+    FROM materials m, recipes r
+    WHERE m.name = 'Tagliatelle pasta' AND r.name = 'Tuna sweetcorn tagliatelle';
+INSERT INTO ingredient (amount, prep_descr, prep_time, material_id, recipe_id)
+    SELECT 10, 'grated', 2, m.id, r.id
+    FROM materials m, recipes r
+    WHERE m.name = 'Parmesan cheese' AND r.name = 'Tuna sweetcorn tagliatelle';
+INSERT INTO ingredient (amount, material_id, recipe_id)
+    SELECT 40, m.id, r.id
+    FROM materials m, recipes r
+    WHERE m.name = 'Tuna in oil' AND r.name = 'Tuna sweetcorn tagliatelle';
+INSERT INTO ingredient (amount, material_id, recipe_id)
+    SELECT 80, m.id, r.id
+    FROM materials m, recipes r
+    WHERE m.name = 'Sweetcorn' AND r.name = 'Tuna sweetcorn tagliatelle';
+INSERT INTO ingredient (amount, material_id, recipe_id)
+    SELECT 0.5, m.id, r.id
+    FROM materials m, recipes r
+    WHERE m.name = 'Lemon' AND r.name = 'Tuna sweetcorn tagliatelle';
+INSERT INTO ingredient (amount, material_id, recipe_id)
+    SELECT 0.5, m.id, r.id
+    FROM materials m, recipes r
+    WHERE m.name = 'Red onion' AND r.name = 'Tuna sweetcorn tagliatelle';
+INSERT INTO ingredient (amount, material_id, recipe_id)
+    SELECT 0.5, m.id, r.id
+    FROM materials m, recipes r
+    WHERE m.name = 'Red chilli' AND r.name = 'Tuna sweetcorn tagliatelle';
+INSERT INTO ingredient (amount, material_id, recipe_id)
+    SELECT 2, m.id, r.id
+    FROM materials m, recipes r
+    WHERE m.name = 'Sprigs of parsley' AND r.name = 'Tuna sweetcorn tagliatelle';
+INSERT INTO ingredient (amount, material_id, recipe_id)
+    SELECT 125, m.id, r.id
+    FROM materials m, recipes r
+    WHERE m.name = 'Tagliatelle pasta' AND r.name = 'Sausage pappardelle';
+INSERT INTO ingredient (amount, material_id, recipe_id)
+    SELECT 1, m.id, r.id
+    FROM materials m, recipes r
+    WHERE m.name = 'Clove of garlic' AND r.name = 'Sausage pappardelle';
+INSERT INTO ingredient (amount, material_id, recipe_id)
+    SELECT 10, m.id, r.id
+    FROM materials m, recipes r
+    WHERE m.name = 'Fennel seed' AND r.name = 'Sausage pappardelle';
+INSERT INTO ingredient (amount, material_id, recipe_id)
+    SELECT 200, m.id, r.id
+    FROM materials m, recipes r
+    WHERE m.name = 'Tomato puree' AND r.name = 'Sausage pappardelle';
+INSERT INTO ingredient (amount, material_id, recipe_id)
+    SELECT 100, m.id, r.id
+    FROM materials m, recipes r
+    WHERE m.name = 'Chianti' AND r.name = 'Sausage pappardelle';
+INSERT INTO ingredient (amount, material_id, recipe_id, isSubstitution)
+    SELECT 100, m.id, r.id, TRUE
+    FROM materials m, recipes r
+    WHERE m.name = 'Red wine' AND r.name = 'Sausage pappardelle';
+INSERT INTO ingredient (amount, material_id, recipe_id)
+    SELECT 0.5, m.id, r.id
+    FROM materials m, recipes r
+    WHERE m.name = 'Red onion' AND r.name = 'Sausage pappardelle';
+INSERT INTO ingredient (amount, material_id, recipe_id)
+    SELECT 75, m.id, r.id
+    FROM materials m, recipes r
+    WHERE m.name = 'Sausages' AND r.name = 'Sausage pappardelle';
 
-INSERT INTO substitutions (source_id, substitute_id) SELECT id FROM ingredient WHERE name = 'Chianti' AND recipe_id = (SELECT id FROM recipes WHERE name = 'Sausage pappardelle'), id FROM ingredient WHERE name = 'Red wine' AND recipe_id = (SELECT id FROM recipes WHERE name = 'Sausage pappardelle');
+INSERT INTO substitutions (source_id, substitute_id)
+    SELECT i1.id, i2.id
+    FROM ingredient i1, ingredient i2
+    WHERE (i1.material_id = (SELECT id FROM materials WHERE name = 'Chianti') AND i1.recipe_id = (SELECT id FROM recipes WHERE name = 'Sausage pappardelle'))
+    AND (i2.material_id = (SELECT id FROM materials WHERE name = 'Red wine') AND i2.recipe_id = (SELECT id FROM recipes WHERE name = 'Sausage pappardelle'));

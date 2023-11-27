@@ -4,3 +4,5 @@
 
 /.vs
 /TestApp/obj
+/BLL/obj
+/DAL/obj

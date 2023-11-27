@@ -3,8 +3,6 @@ package ppkeitkhalkszavu.projectrossini.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
-
 @Entity
 @Getter
 @Setter
@@ -20,6 +18,8 @@ public class Ingredient {
     private String prepDescr;
     @Column
     private int prepTime;
+    @Column
+    private Boolean isSubstitue;
 
     @ManyToOne
     private Material material;

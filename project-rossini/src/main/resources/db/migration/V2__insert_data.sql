@@ -34,7 +34,7 @@ INSERT INTO ingredient (amount, material_id, recipe_id) SELECT 1, id FROM materi
 INSERT INTO ingredient (amount, material_id, recipe_id) SELECT 10, id FROM materials WHERE name = 'Fennel seed', id FROM recipes WHERE name = 'Sausage pappardelle';
 INSERT INTO ingredient (amount, material_id, recipe_id) SELECT 200, id FROM materials WHERE name = 'Tomato puree', id FROM recipes WHERE name = 'Sausage pappardelle';
 INSERT INTO ingredient (amount, material_id, recipe_id) SELECT 100, id FROM materials WHERE name = 'Chianti', id FROM recipes WHERE name = 'Sausage pappardelle';
-INSERT INTO ingredient (amount, material_id, recipe_id) SELECT 100, id FROM materials WHERE name = 'Red wine', id FROM recipes WHERE name = 'Sausage pappardelle';
+INSERT INTO ingredient (amount, isSubstitute, material_id, recipe_id) SELECT 100, TRUE, id FROM materials WHERE name = 'Red wine', id FROM recipes WHERE name = 'Sausage pappardelle';
 INSERT INTO ingredient (amount, material_id, recipe_id) SELECT 0.5, id FROM materials WHERE name = 'Sprigs of parsley', id FROM recipes WHERE name = 'Sausage pappardelle';
 INSERT INTO ingredient (amount, material_id, recipe_id) SELECT 75, id FROM materials WHERE name = 'Saugsages', id FROM recipes WHERE name = 'Sausage pappardelle';
 

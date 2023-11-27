@@ -5,6 +5,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import ppkeitkhalkszavu.projectrossini.domain.Dish;
 
+import java.util.List;
+
 public interface DishRepository extends JpaRepository<Dish, Integer> {
     Page<Dish> findAll(Pageable pageable);
+
+    List<Dish> findByName(String name);
 }

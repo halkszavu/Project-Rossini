@@ -19,7 +19,7 @@ public class Ingredient {
     @Column
     private int prepTime;
     @Column
-    private Boolean isSubstitue;
+    private Boolean isSubstitute;
 
     @ManyToOne
     private Material material;

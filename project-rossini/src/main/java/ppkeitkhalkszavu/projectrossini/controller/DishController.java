@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ppkeitkhalkszavu.projectrossini.domain.Dish;
-import ppkeitkhalkszavu.projectrossini.repository.DishRepository;
+import ppkeitkhalkszavu.projectrossini.repository.MockDishRepository;
 
 import java.util.List;
 
@@ -18,10 +18,10 @@ import java.util.List;
 @RestController
 public class DishController {
 
-    private final DishRepository dishRepository;
+    private final MockDishRepository dishRepository;
 
     @Autowired
-    public DishController(DishRepository dishRepository) {
+    public DishController(MockDishRepository dishRepository) {
         this.dishRepository = dishRepository;
     }
 

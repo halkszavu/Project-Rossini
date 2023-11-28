@@ -2,17 +2,17 @@ CREATE TYPE UNIT AS ENUM ('GRAM', 'LITRE', 'PIECE');
 
 CREATE TABLE benefits (
   id INTEGER NOT NULL PRIMARY KEY auto_increment,
-   effect VARCHAR(255)
+   effect VARCHAR(255) NOT NULL
 );
 CREATE TABLE dishes (
   id INTEGER NOT NULL PRIMARY KEY auto_increment,
-   name VARCHAR(255),
+   name VARCHAR(255) NOT NULL,
    user_id VARCHAR(255)
 );
 CREATE TABLE users (
   id INTEGER NOT NULL PRIMARY KEY auto_increment,
-   name VARCHAR(255),
-   role VARCHAR(255),
+   name VARCHAR(255) NOT NULL,
+   role VARCHAR(255) NOT NULL,
    CONSTRAINT unique_name UNIQUE (name)
 );
 CREATE TABLE substitutions (
@@ -22,26 +22,26 @@ CREATE TABLE substitutions (
 );
 CREATE TABLE recipes (
   id INTEGER NOT NULL PRIMARY KEY auto_increment,
-   name VARCHAR(255),
-   method_time INTEGER,
-   rest_time INTEGER,
-   serves INTEGER,
-   method_descr TEXT,
+   name VARCHAR(255) NOT NULL,
+   method_time INTEGER NOT NULL,
+   rest_time INTEGER NOT NULL,
+   serves INTEGER NOT NULL,
+   method_descr TEXT NOT NULL,
    dish_id INTEGER
 );
 CREATE TABLE materials (
   id INTEGER NOT NULL PRIMARY KEY auto_increment,
-   name VARCHAR(255),
-   unit UNIT
+   name VARCHAR(255) NOT NULL,
+   unit UNIT NOT NULL
 );
 CREATE TABLE ingredient (
   id INTEGER NOT NULL PRIMARY KEY auto_increment,
-   amount FLOAT(24),
+   amount FLOAT(24) NOT NULL,
    prep_descr VARCHAR(255),
-   prep_time INTEGER,
-   material_id INTEGER,
-   recipe_id INTEGER,
-   isSubstitution BOOLEAN
+   prep_time INTEGER NOT NULL,
+   material_id INTEGER NOT NULL,
+   recipe_id INTEGER NOT NULL,
+   isSubstitution BOOLEAN NOT NULL
 );
 CREATE TABLE materials_benefit (
   id INTEGER NOT NULL PRIMARY KEY auto_increment,

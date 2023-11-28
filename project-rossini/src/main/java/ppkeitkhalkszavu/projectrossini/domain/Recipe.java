@@ -15,15 +15,15 @@ public class Recipe {
     @Id
     @GeneratedValue
     private int id;
-    @Column
+    @Column(nullable = false)
     private String name;
-    @Column
+    @Column(nullable = false)
     private int methodTime;
-    @Column
-    private int restTime;
-    @Column
-    private int serves;
-    @Column
+    @Column(nullable = false)
+    private int restTime = 0;
+    @Column(nullable = false)
+    private int serves = 1;
+    @Column(nullable = false)
     private String methodDescr;
 
     @ManyToOne

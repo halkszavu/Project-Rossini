@@ -15,10 +15,10 @@ public class Material {
     @Id
     @GeneratedValue
     private int id;
-    @Column
+    @Column(nullable = false)
     private String name;
-    @Column
-    private UnitOfMeasure unit;
+    @Column(nullable = false)
+    private UnitOfMeasure unit = UnitOfMeasure.PIECE;
 
     @OneToMany
     private List<Benefit> benefit;

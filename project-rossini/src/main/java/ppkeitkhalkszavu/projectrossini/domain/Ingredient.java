@@ -12,15 +12,17 @@ public class Ingredient {
     @Id
     @GeneratedValue
     private int id;
-    @Column
+    @Column(nullable = false)
     private float amount;
     @Column
     private String prepDescr;
-    @Column
-    private int prepTime;
-    @Column
-    private Boolean isSubstitute;
+    @Column(nullable = false)
+    private int prepTime = 0;
+    @Column(nullable = false)
+    private Boolean isSubstitute = false;
 
     @ManyToOne
     private Material material;
+    @ManyToOne
+    private Recipe recipe;
 }

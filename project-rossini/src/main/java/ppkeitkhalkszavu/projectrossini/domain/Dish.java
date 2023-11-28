@@ -12,7 +12,7 @@ import lombok.*;
 public class Dish {
     @Id
     private int id;
-    @Column
+    @Column(nullable = false)
     private String name;
 
     @ManyToOne

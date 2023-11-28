@@ -41,7 +41,7 @@ CREATE TABLE ingredient (
    prep_time INTEGER NOT NULL,
    material_id INTEGER NOT NULL,
    recipe_id INTEGER NOT NULL,
-   isSubstitution BOOLEAN NOT NULL
+   is_substitute BOOLEAN NOT NULL
 );
 CREATE TABLE materials_benefit (
   id INTEGER NOT NULL PRIMARY KEY auto_increment,

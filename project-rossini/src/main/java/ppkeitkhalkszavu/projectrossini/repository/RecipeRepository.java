@@ -6,5 +6,5 @@ import ppkeitkhalkszavu.projectrossini.domain.Recipe;
 import java.util.List;
 
 public interface RecipeRepository extends JpaRepository<Recipe, Integer> {
-    List<Recipe> findAllByName(String dishName);
+    List<Recipe> findAllByName(String recipeName);
 }

@@ -18,6 +18,7 @@ public class Material {
     @Column(nullable = false)
     private String name;
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private UnitOfMeasure unit = UnitOfMeasure.PIECE;
 
     @OneToMany

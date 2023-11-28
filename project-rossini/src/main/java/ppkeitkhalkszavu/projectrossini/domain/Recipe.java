@@ -1,5 +1,7 @@
 package ppkeitkhalkszavu.projectrossini.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -28,8 +30,9 @@ public class Recipe {
 
     @ManyToOne
     @JoinColumn(name = "dish_id")
+    @JsonBackReference
     private Dish dish;
-    @OneToMany
-    @JoinColumn(name = "ingredient_id")
+    @OneToMany(mappedBy = "recipe")
+    @JsonManagedReference
     private List<Ingredient> ingredients;
 }

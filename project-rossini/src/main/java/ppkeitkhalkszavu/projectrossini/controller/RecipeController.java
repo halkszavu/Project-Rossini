@@ -6,9 +6,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ppkeitkhalkszavu.projectrossini.domain.Recipe;
 import ppkeitkhalkszavu.projectrossini.repository.RecipeRepository;
 
@@ -17,6 +15,7 @@ import java.util.List;
 @RestController
 @Tag(name = "Recipe")
 @Slf4j
+@RequestMapping(value = "/recipes", produces = "application/json")
 public class RecipeController {
 
     RecipeRepository recipeRepository;
@@ -31,7 +30,8 @@ public class RecipeController {
             @ApiResponse(responseCode = "200", description = "Found recipes"),
             @ApiResponse(responseCode = "400", description = "Invalid url parameters supplied"),
     })
-    @GetMapping("/recipes/name/{name}")
+    @GetMapping("/name/{name}")
+    @ResponseBody
     public List<Recipe> getRecipeByName(@PathVariable("name") String name) {
         log.info("Calling GET /recipes/name/{} endpoint", name);
 

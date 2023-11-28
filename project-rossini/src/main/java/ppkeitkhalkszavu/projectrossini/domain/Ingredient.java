@@ -1,5 +1,6 @@
 package ppkeitkhalkszavu.projectrossini.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -8,6 +9,7 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@NamedQuery(name = "findByRecipeId", query = "SELECT i FROM Ingredient i WHERE i.recipe.id = ?1")
 public class Ingredient {
     @Id
     @GeneratedValue
@@ -22,7 +24,10 @@ public class Ingredient {
     private Boolean isSubstitute = false;
 
     @ManyToOne
+    @JoinColumn(name = "material_id")
     private Material material;
     @ManyToOne
+    @JoinColumn(name = "recipe_id")
+    @JsonBackReference
     private Recipe recipe;
 }

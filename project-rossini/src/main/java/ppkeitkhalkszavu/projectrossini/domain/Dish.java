@@ -3,6 +3,8 @@ package ppkeitkhalkszavu.projectrossini.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -18,4 +20,7 @@ public class Dish {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User owner;
+
+    @OneToMany(mappedBy = "dish", cascade = CascadeType.REMOVE)
+    private List<Recipe> recipes;
 }

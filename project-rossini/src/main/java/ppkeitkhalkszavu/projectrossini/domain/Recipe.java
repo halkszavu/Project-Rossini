@@ -32,7 +32,7 @@ public class Recipe {
     @JoinColumn(name = "dish_id")
     @JsonBackReference
     private Dish dish;
-    @OneToMany(mappedBy = "recipe")
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.REMOVE)
     @JsonManagedReference
     private List<Ingredient> ingredients;
 }

@@ -15,7 +15,7 @@ import java.util.List;
 @Table (name = "materials")
 public class Material {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
     private int id;
     @Column(nullable = false)

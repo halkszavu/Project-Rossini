@@ -11,7 +11,7 @@ import lombok.*;
 @Table (name = "substitutions")
 public class Substitution {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @ManyToOne

@@ -14,7 +14,7 @@ import lombok.*;
 @NamedQuery(name = "findByRecipeId", query = "SELECT i FROM Ingredient i WHERE i.recipe.id = ?1")
 public class Ingredient {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
     private int id;
     @Column(nullable = false)

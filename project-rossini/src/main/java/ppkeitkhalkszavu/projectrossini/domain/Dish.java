@@ -15,6 +15,7 @@ import java.util.List;
 public class Dish {
     @Id
     @JsonIgnore
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column(nullable = false)
     private String name;

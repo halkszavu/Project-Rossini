@@ -37,4 +37,17 @@ public class RecipeController {
 
         return recipeRepository.findAllByName(name);
     }
+
+    @Operation(summary = "Get a recipe by id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found the recipe"),
+            @ApiResponse(responseCode = "400", description = "Invalid url parameters supplied"),
+    })
+    @GetMapping("/{id}")
+    @ResponseBody
+    public Recipe getRecipeById(@PathVariable("id") Integer id) {
+        log.info("Calling GET /recipes/{} endpoint", id);
+
+        return recipeRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid recipe id supplied"));
+    }
 }

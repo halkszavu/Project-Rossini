@@ -1,5 +1,7 @@
 package ppkeitkhalkszavu.projectrossini.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,6 +16,7 @@ import java.util.List;
 public class Material {
     @Id
     @GeneratedValue
+    @JsonIgnore
     private int id;
     @Column(nullable = false)
     private String name;
@@ -21,6 +24,7 @@ public class Material {
     @Enumerated(EnumType.STRING)
     private UnitOfMeasure unit = UnitOfMeasure.PIECE;
 
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @OneToMany
     private List<Benefit> benefit;
 }

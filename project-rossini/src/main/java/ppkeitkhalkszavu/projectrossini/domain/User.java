@@ -1,5 +1,6 @@
 package ppkeitkhalkszavu.projectrossini.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,6 +17,7 @@ public class User {
 
     @Id
     @GeneratedValue
+    @JsonIgnore
     private int id;
     @Column(nullable = false)
     private String name;

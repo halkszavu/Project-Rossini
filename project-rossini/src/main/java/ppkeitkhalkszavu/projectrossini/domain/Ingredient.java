@@ -1,6 +1,8 @@
 package ppkeitkhalkszavu.projectrossini.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -13,14 +15,18 @@ import lombok.*;
 public class Ingredient {
     @Id
     @GeneratedValue
+    @JsonIgnore
     private int id;
     @Column(nullable = false)
     private float amount;
     @Column
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String prepDescr;
     @Column(nullable = false)
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     private int prepTime = 0;
     @Column(nullable = false)
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     private Boolean isSubstitute = false;
 
     @ManyToOne

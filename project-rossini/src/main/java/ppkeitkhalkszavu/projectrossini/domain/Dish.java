@@ -1,5 +1,6 @@
 package ppkeitkhalkszavu.projectrossini.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -13,6 +14,7 @@ import java.util.List;
 @Table(name = "dishes")
 public class Dish {
     @Id
+    @JsonIgnore
     private int id;
     @Column(nullable = false)
     private String name;

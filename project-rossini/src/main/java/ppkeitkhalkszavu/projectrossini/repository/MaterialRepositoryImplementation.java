@@ -1,6 +1,7 @@
 package ppkeitkhalkszavu.projectrossini.repository;
 
 import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import ppkeitkhalkszavu.projectrossini.domain.Benefit;
@@ -17,6 +18,7 @@ public class MaterialRepositoryImplementation implements MaterialRepository{
     private EntityManager entityManager;
     private final BenefitRepository benefitRepository;
 
+    @Transactional
     @Override
     public Material save(String name, UnitOfMeasure unit) {
         Material material = new Material();
@@ -26,6 +28,7 @@ public class MaterialRepositoryImplementation implements MaterialRepository{
         return material;
     }
 
+    @Transactional
     @Override
     public Material setBenefit(int id, int benefitId) {
         Optional<Benefit> benefit = benefitRepository.findById(benefitId);

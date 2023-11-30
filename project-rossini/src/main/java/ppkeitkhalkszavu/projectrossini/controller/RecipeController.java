@@ -7,7 +7,10 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import ppkeitkhalkszavu.projectrossini.controller.dto.RecipeDTO;
 import ppkeitkhalkszavu.projectrossini.domain.Recipe;
+import ppkeitkhalkszavu.projectrossini.repository.CustomRecipeRepository;
+import ppkeitkhalkszavu.projectrossini.repository.CustomRecipeRepositoryImplementation;
 import ppkeitkhalkszavu.projectrossini.repository.RecipeRepository;
 
 import java.util.List;
@@ -19,10 +22,12 @@ import java.util.List;
 public class RecipeController {
 
     RecipeRepository recipeRepository;
+    CustomRecipeRepository customRecipeRepository;
 
     @Autowired
-    public RecipeController(RecipeRepository recipeRepository) {
+    public RecipeController(RecipeRepository recipeRepository, CustomRecipeRepository customRecipeRepository) {
         this.recipeRepository = recipeRepository;
+        this.customRecipeRepository = customRecipeRepository;
     }
 
     @Operation(summary = "Get the recipes that match the name")
@@ -74,7 +79,7 @@ public class RecipeController {
     public void deleteRecipeById(@PathVariable("id") Integer id) {
         log.info("Calling DELETE /recipes/{} endpoint", id);
 
-        recipeRepository.deleteById(id);
+        customRecipeRepository.delete(id);
     }
 
     @Operation(summary = "Update a recipe by id")
@@ -84,23 +89,11 @@ public class RecipeController {
     })
     @PostMapping("/{id}")
     @ResponseBody
-    public Recipe updateRecipeById(@PathVariable("id") Integer id, @RequestBody Recipe recipe) {
+    public Recipe updateRecipeById(@PathVariable("id") Integer id, @RequestBody RecipeDTO recipeDto) {
         log.info("Calling POST /recipes/{} endpoint", id);
 
-        return recipeRepository.findById(id)
-                .map(r -> {
-                    r.setName(recipe.getName());
-                    r.setIngredients(recipe.getIngredients());
-                    r.setDish(recipe.getDish());
-                    r.setServes(recipe.getServes());
-                    r.setMethodDescr(recipe.getMethodDescr());
-                    r.setMethodTime(recipe.getMethodTime());
-                    r.setRestTime(recipe.getRestTime());
-                    return recipeRepository.save(r);
-                })
-                .orElseGet(() -> {
-                    recipe.setId(id);
-                    return recipeRepository.save(recipe);
-                });
+        Recipe recipe = customRecipeRepository.modify(recipeDto);
+
+        return recipe;
     }
 }

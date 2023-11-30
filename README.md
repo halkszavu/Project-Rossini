@@ -6,7 +6,7 @@ The application is for a repository of recipes. The recipes are grouped into dis
 There are multiple options:
  1. **Clone and compile**
     Clone the repository and compile it. The application is written in Java with Spring, and Maven will also be needed to build the eventual application. The release build is in the release branch.
- 2. **Download the latest version**
+ 3. **Download the latest version**
     You can download the latest version from github releases. This can be run on any computer with Java runtime.
 
 **NB:**

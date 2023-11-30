@@ -1,19 +1,29 @@
 package ppkeitkhalkszavu.projectrossini.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@NoArgsConstructor
 @AllArgsConstructor
+@Setter
+@Getter
+@Entity
+@Table (name = "users")
 public class User {
-    private String id;
-    private String name;
-    private Role role;
-}
 
-enum Role {
-    ADMIN,
-    USER,
-    CHEF,
-    DIETITIAN,
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
+    private int id;
+    @Column(nullable = false)
+    private String name;
+    @Column(nullable = false)
+    private String role = "ROLE_USER";
+    @Column(nullable = false)
+    @JsonIgnore
+    private String password;
 }

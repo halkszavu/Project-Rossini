@@ -1,11 +1,29 @@
 package ppkeitkhalkszavu.projectrossini.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import lombok.*;
 
-@Data
+import java.util.List;
+
 @AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@Entity
+@Table(name = "dishes")
 public class Dish {
-    private String id;
+    @Id
+    @JsonIgnore
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    @Column(nullable = false)
     private String name;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User owner;
+
+    @OneToMany(mappedBy = "dish", cascade = CascadeType.REMOVE)
+    private List<Recipe> recipes;
 }

@@ -1,12 +1,23 @@
 package ppkeitkhalkszavu.projectrossini.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import jakarta.persistence.*;
+import lombok.*;
 
-@Data
 @AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
+@Entity
+@Table (name = "substitutions")
 public class Substitution {
-    private String id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @ManyToOne
+    @JoinColumn (name = "source_id")
     private Ingredient source;
+    @ManyToOne
+    @JoinColumn (name = "substitute_id")
     private Ingredient substitute;
 }

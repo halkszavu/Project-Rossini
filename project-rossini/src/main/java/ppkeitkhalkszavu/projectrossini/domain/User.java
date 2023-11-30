@@ -23,4 +23,7 @@ public class User {
     private String name;
     @Column(nullable = false)
     private String role = "ROLE_USER";
+    @Column(nullable = false)
+    @JsonIgnore
+    private String password;
 }

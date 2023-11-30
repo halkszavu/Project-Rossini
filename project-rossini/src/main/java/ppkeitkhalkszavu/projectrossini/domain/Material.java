@@ -28,9 +28,3 @@ public class Material {
     @OneToMany
     private List<Benefit> benefit;
 }
-
-enum UnitOfMeasure {
-    GRAM,
-    LITRE,
-    PIECE,
-}

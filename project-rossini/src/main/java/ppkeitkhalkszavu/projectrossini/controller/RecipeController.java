@@ -50,4 +50,57 @@ public class RecipeController {
 
         return recipeRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid recipe id supplied"));
     }
+
+    @Operation(summary = "Create a new recipe")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Created the recipe"),
+            @ApiResponse(responseCode = "400", description = "Invalid url parameters supplied"),
+    })
+    @PutMapping
+    @ResponseBody
+    public Recipe createRecipe(@RequestBody Recipe recipe) {
+        log.info("Calling PUT /recipes endpoint");
+
+        return recipeRepository.save(recipe);
+    }
+
+    @Operation(summary = "Delete a recipe by id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Deleted the recipe"),
+            @ApiResponse(responseCode = "400", description = "Invalid url parameters supplied"),
+    })
+    @DeleteMapping("/{id}")
+    @ResponseBody
+    public void deleteRecipeById(@PathVariable("id") Integer id) {
+        log.info("Calling DELETE /recipes/{} endpoint", id);
+
+        recipeRepository.deleteById(id);
+    }
+
+    @Operation(summary = "Update a recipe by id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Updated the recipe"),
+            @ApiResponse(responseCode = "400", description = "Invalid url parameters supplied"),
+    })
+    @PostMapping("/{id}")
+    @ResponseBody
+    public Recipe updateRecipeById(@PathVariable("id") Integer id, @RequestBody Recipe recipe) {
+        log.info("Calling POST /recipes/{} endpoint", id);
+
+        return recipeRepository.findById(id)
+                .map(r -> {
+                    r.setName(recipe.getName());
+                    r.setIngredients(recipe.getIngredients());
+                    r.setDish(recipe.getDish());
+                    r.setServes(recipe.getServes());
+                    r.setMethodDescr(recipe.getMethodDescr());
+                    r.setMethodTime(recipe.getMethodTime());
+                    r.setRestTime(recipe.getRestTime());
+                    return recipeRepository.save(r);
+                })
+                .orElseGet(() -> {
+                    recipe.setId(id);
+                    return recipeRepository.save(recipe);
+                });
+    }
 }

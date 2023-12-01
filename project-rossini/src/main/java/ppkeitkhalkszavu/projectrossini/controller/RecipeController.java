@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import ppkeitkhalkszavu.projectrossini.controller.dto.RecipeDTO;
 import ppkeitkhalkszavu.projectrossini.domain.Dish;
 import ppkeitkhalkszavu.projectrossini.domain.Ingredient;
+import ppkeitkhalkszavu.projectrossini.domain.Material;
 import ppkeitkhalkszavu.projectrossini.domain.Recipe;
 import ppkeitkhalkszavu.projectrossini.repository.*;
 
@@ -79,13 +80,7 @@ public class RecipeController {
         if(d.isEmpty())
             throw new IllegalArgumentException("Invalid dish id supplied");
 
-        for (Ingredient i: recipeDto.getIngredients()) {
-            if(materialRepository.findByName(i.getMaterial().getName()).isEmpty())
-                customMaterialRepository.save(i.getMaterial().getName(), i.getMaterial().getUnit());
-        }
-
-
-        return recipeRepository.save(recipeDto.toRecipe(dishId, dishRepository));
+        return customRecipeRepository.save(dishId, recipeDto);
     }
 
     @Operation(summary = "Delete a recipe by id")

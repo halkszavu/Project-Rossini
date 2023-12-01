@@ -1,9 +1,10 @@
 package ppkeitkhalkszavu.projectrossini.repository;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import ppkeitkhalkszavu.projectrossini.domain.Material;
-import ppkeitkhalkszavu.projectrossini.domain.UnitOfMeasure;
 
-public interface MaterialRepository {
-    Material save(String name, UnitOfMeasure unit);
-    Material setBenefit(int id, int benefitId);
+import java.util.Optional;
+
+public interface MaterialRepository extends JpaRepository<Material, Integer> {
+    Optional<Material> findByName(String name);
 }

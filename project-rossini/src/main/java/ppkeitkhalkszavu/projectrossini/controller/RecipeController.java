@@ -4,14 +4,13 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ppkeitkhalkszavu.projectrossini.controller.dto.RecipeDTO;
 import ppkeitkhalkszavu.projectrossini.domain.Dish;
+import ppkeitkhalkszavu.projectrossini.domain.Ingredient;
 import ppkeitkhalkszavu.projectrossini.domain.Recipe;
-import ppkeitkhalkszavu.projectrossini.domain.User;
 import ppkeitkhalkszavu.projectrossini.repository.*;
 
 import java.util.List;
@@ -27,13 +26,17 @@ public class RecipeController {
     CustomRecipeRepository customRecipeRepository;
     DishRepository dishRepository;
     UserRepository userRepository;
+    MaterialRepository materialRepository;
+    CustomMaterialRepository customMaterialRepository;
 
     @Autowired
-    public RecipeController(RecipeRepository recipeRepository, CustomRecipeRepository customRecipeRepository, DishRepository dishRepository, UserRepository userRepository) {
+    public RecipeController(RecipeRepository recipeRepository, CustomRecipeRepository customRecipeRepository, DishRepository dishRepository, UserRepository userRepository, MaterialRepository materialRepository, CustomMaterialRepository customMaterialRepository) {
         this.recipeRepository = recipeRepository;
         this.customRecipeRepository = customRecipeRepository;
         this.dishRepository = dishRepository;
         this.userRepository = userRepository;
+        this.materialRepository = materialRepository;
+        this.customMaterialRepository = customMaterialRepository;
     }
 
     @Operation(summary = "Get the recipes that match the name")
@@ -75,6 +78,12 @@ public class RecipeController {
         Optional<Dish> d = dishRepository.findById(dishId);
         if(d.isEmpty())
             throw new IllegalArgumentException("Invalid dish id supplied");
+
+        for (Ingredient i: recipeDto.getIngredients()) {
+            if(materialRepository.findByName(i.getMaterial().getName()).isEmpty())
+                customMaterialRepository.save(i.getMaterial().getName(), i.getMaterial().getUnit());
+        }
+
 
         return recipeRepository.save(recipeDto.toRecipe(dishId, dishRepository));
     }

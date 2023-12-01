@@ -6,8 +6,10 @@ import lombok.NoArgsConstructor;
 import ppkeitkhalkszavu.projectrossini.domain.Dish;
 import ppkeitkhalkszavu.projectrossini.domain.Ingredient;
 import ppkeitkhalkszavu.projectrossini.domain.Recipe;
+import ppkeitkhalkszavu.projectrossini.repository.DishRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Data
 @AllArgsConstructor
@@ -20,10 +22,13 @@ public class RecipeDTO {
     private int serves = 1;
     private String methodDescr;
 
-    private Dish dish;
     private List<Ingredient> ingredients;
 
-    public Recipe toRecipe() {
-        return new Recipe(id, name, methodTime, restTime, serves, methodDescr, dish, ingredients);
+    public Recipe toRecipe(int dishId, DishRepository dishRepository) throws IllegalArgumentException {
+        Optional<Dish> d = dishRepository.findById(dishId);
+        if(d.isPresent())
+            return new Recipe(id, name, methodTime, restTime, serves, methodDescr, d.get(), ingredients);
+        else
+            throw new IllegalArgumentException("Invalid dish id supplied");
     }
 }

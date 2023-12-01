@@ -14,11 +14,12 @@ import java.util.Optional;
 public class CustomRecipeRepositoryImplementation implements CustomRecipeRepository{
 
     private EntityManager entityManager;
+    private DishRepository dishRepository;
 
     @Transactional
     @Override
-    public Recipe save(int ownerId, RecipeDTO recipeDTO) {
-        Recipe recipe = recipeDTO.toRecipe();
+    public Recipe save(int dishId, RecipeDTO recipeDTO) {
+        Recipe recipe = recipeDTO.toRecipe(dishId, dishRepository);
         entityManager.persist(recipe);
         return recipe;
     }
@@ -39,7 +40,6 @@ public class CustomRecipeRepositoryImplementation implements CustomRecipeReposit
             recipe.setRestTime(recipeDTO.getRestTime());
             recipe.setServes(recipeDTO.getServes());
             recipe.setMethodDescr(recipeDTO.getMethodDescr());
-            recipe.setDish(recipeDTO.getDish());
             recipe.setIngredients(recipeDTO.getIngredients());
             entityManager.persist(recipe);
             return recipe;

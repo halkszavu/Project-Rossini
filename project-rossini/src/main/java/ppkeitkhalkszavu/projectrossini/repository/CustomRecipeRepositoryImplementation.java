@@ -5,6 +5,8 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 import ppkeitkhalkszavu.projectrossini.controller.dto.RecipeDTO;
+import ppkeitkhalkszavu.projectrossini.domain.Ingredient;
+import ppkeitkhalkszavu.projectrossini.domain.Material;
 import ppkeitkhalkszavu.projectrossini.domain.Recipe;
 
 import java.util.Optional;
@@ -14,14 +16,32 @@ import java.util.Optional;
 public class CustomRecipeRepositoryImplementation implements CustomRecipeRepository{
 
     private EntityManager entityManager;
-    private DishRepository dishRepository;
+    private final DishRepository dishRepository;
+    private final MaterialRepository materialRepository;
+    private final CustomMaterialRepository customMaterialRepository;
+    private final CustomIngredientRepository customIngredientRepository;
+    private final RecipeRepository recipeRepository;
 
     @Transactional
     @Override
     public Recipe save(int dishId, RecipeDTO recipeDTO) {
-        Recipe recipe = recipeDTO.toRecipe(dishId, dishRepository);
+        Recipe recipe = recipeDTO.toSimpleRecipe(dishId, dishRepository);
         entityManager.persist(recipe);
-        return recipe;
+
+        for (Ingredient i: recipeDTO.getIngredients()) {
+            Material material;
+            if(materialRepository.findByName(i.getMaterial().getName()).isEmpty())
+                material = customMaterialRepository.save(i.getMaterial().getName(), i.getMaterial().getUnit());
+            else
+                material = materialRepository.findByName(i.getMaterial().getName()).get();
+
+            i.setMaterial(material);
+            i.setRecipe(recipe);
+
+            customIngredientRepository.save(i);
+        }
+
+        return recipeRepository.findById(recipe.getId()).get();
     }
 
     @Transactional

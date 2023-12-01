@@ -31,4 +31,12 @@ public class RecipeDTO {
         else
             throw new IllegalArgumentException("Invalid dish id supplied");
     }
+
+    public Recipe toSimpleRecipe(int dishId, DishRepository dishRepository) throws IllegalArgumentException {
+        Optional<Dish> d = dishRepository.findById(dishId);
+        if(d.isPresent())
+            return new Recipe(id, name, methodTime, restTime, serves, methodDescr, d.get(), null);
+        else
+            throw new IllegalArgumentException("Invalid dish id supplied");
+    }
 }

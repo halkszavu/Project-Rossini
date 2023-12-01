@@ -1,6 +1,7 @@
 package ppkeitkhalkszavu.projectrossini.repository;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -13,8 +14,9 @@ import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
-public class MaterialRepositoryImplementation implements MaterialRepository{
+public class CustomMaterialRepositoryImplementation implements CustomMaterialRepository {
 
+    @PersistenceContext
     private EntityManager entityManager;
     private final BenefitRepository benefitRepository;
 

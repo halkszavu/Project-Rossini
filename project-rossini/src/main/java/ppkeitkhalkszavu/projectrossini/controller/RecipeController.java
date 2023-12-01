@@ -4,16 +4,18 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ppkeitkhalkszavu.projectrossini.controller.dto.RecipeDTO;
+import ppkeitkhalkszavu.projectrossini.domain.Dish;
 import ppkeitkhalkszavu.projectrossini.domain.Recipe;
-import ppkeitkhalkszavu.projectrossini.repository.CustomRecipeRepository;
-import ppkeitkhalkszavu.projectrossini.repository.CustomRecipeRepositoryImplementation;
-import ppkeitkhalkszavu.projectrossini.repository.RecipeRepository;
+import ppkeitkhalkszavu.projectrossini.domain.User;
+import ppkeitkhalkszavu.projectrossini.repository.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @Tag(name = "Recipe")
@@ -23,11 +25,15 @@ public class RecipeController {
 
     RecipeRepository recipeRepository;
     CustomRecipeRepository customRecipeRepository;
+    DishRepository dishRepository;
+    UserRepository userRepository;
 
     @Autowired
-    public RecipeController(RecipeRepository recipeRepository, CustomRecipeRepository customRecipeRepository) {
+    public RecipeController(RecipeRepository recipeRepository, CustomRecipeRepository customRecipeRepository, DishRepository dishRepository, UserRepository userRepository) {
         this.recipeRepository = recipeRepository;
         this.customRecipeRepository = customRecipeRepository;
+        this.dishRepository = dishRepository;
+        this.userRepository = userRepository;
     }
 
     @Operation(summary = "Get the recipes that match the name")
@@ -56,17 +62,21 @@ public class RecipeController {
         return recipeRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid recipe id supplied"));
     }
 
-    @Operation(summary = "Create a new recipe")
+    @Operation(summary = "Create a new recipe with a given user as owner and dish, which it belongs to")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Created the recipe"),
             @ApiResponse(responseCode = "400", description = "Invalid url parameters supplied"),
     })
-    @PutMapping
+    @PutMapping("/dish={dishId}")
     @ResponseBody
-    public Recipe createRecipe(@RequestBody Recipe recipe) {
+    public Recipe createRecipe(@PathVariable("dishId") Integer dishId, @RequestBody RecipeDTO recipeDto) {
         log.info("Calling PUT /recipes endpoint");
 
-        return recipeRepository.save(recipe);
+        Optional<Dish> d = dishRepository.findById(dishId);
+        if(d.isEmpty())
+            throw new IllegalArgumentException("Invalid dish id supplied");
+
+        return recipeRepository.save(recipeDto.toRecipe(dishId, dishRepository));
     }
 
     @Operation(summary = "Delete a recipe by id")
